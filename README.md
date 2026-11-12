@@ -137,3 +137,5 @@ bash uninstall.sh   # 优先恢复最近一次 install.sh 的备份；无备份�
 ## License
 
 MIT（见 [LICENSE](LICENSE)）。所含 Claude Code 提示词段落提取自用户本机已安装的二进制，仅作个人配置用途，版权归原作者。
+
+更多实测结论（人格归属与影响面、A/B 变化数据、多人格路线选型）见 [FAQ.md](FAQ.md)。
