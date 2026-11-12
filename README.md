@@ -87,6 +87,22 @@ bash install.sh
 cp PERSONALITY.md APPEND_SYSTEM.md ~/.omp/agent/
 ```
 
+## 人格切换：default 与 claude 风格并存
+
+不想动内置 default 人格？claude 风格本质是"覆盖文件"——**移除即回落原生 default，无需复制 default，零漂移**：
+
+```bash
+bash switch-persona.sh claude    # 切 claude 风格（写入覆盖文件）
+bash switch-persona.sh default   # 切回内置 default（移除覆盖文件）
+bash switch-persona.sh status    # 查看当前档位
+# 可选：装一条快捷命令
+ln -sf "$(pwd)/switch-persona.sh" ~/.local/bin/omp-persona && omp-persona status
+```
+
+- 切换在**新会话**生效（系统提示启动时渲染）；已开会话不受影响 → 可先开一个 default 会话、切换、再开一个 claude 会话，**两种人格并发使用**
+- 想要完全隔离的多环境（配置/会话/缓存各自独立），走 profile 路线：`omp --profile claude --alias omp-claude`，在 `~/.omp/profiles/claude/agent/` 放各自文件
+- omp 无 `/personality` 会话内切换命令（二进制已验证），文件层切换是唯一路线
+
 ## 验证
 
 ```bash
@@ -110,6 +126,8 @@ bash uninstall.sh   # 优先恢复最近一次 install.sh 的备份；无备份�
 ```
 
 或手动：`rm ~/.omp/agent/PERSONALITY.md ~/.omp/agent/APPEND_SYSTEM.md`（新会话生效）。
+
+日常只是想暂时回到 default 人格：`bash switch-persona.sh default`（只移除覆盖文件，仓库本体保留，随时切回）。
 
 ## 环境要求
 
